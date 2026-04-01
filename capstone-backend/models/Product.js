@@ -1,6 +1,36 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
-const productSchema = new mongoose.Schema({}, {timestamps: true});
+export const PRODUCT_CATEGORIES = ['Marine', 'Farm', 'Llamapalooza'];
+
+const productSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true,
+    },
+    price: {
+        type: Number,
+        required: true,
+    },
+    description: {
+        type: String,
+        required: true,
+    },
+    image: [{
+        url: String,
+        altText: String,
+    }],
+    category: {
+        type: [String],
+        required: true,
+        validate: {
+            validator: function(categories) {
+                return categories.length > 0 && categories.every(category => PRODUCT_CATEGORIES.includes(category));
+            },
+            message: props => `Invalid categories: ${props.value}`,
+        }
+    }
+}, {timestamps: true});
 
 const Product = mongoose.model('Product', productSchema);
-module.exports = Product;
+
+export default Product;

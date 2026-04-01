@@ -1,9 +1,62 @@
+@import "tailwindcss";
+
+:root {
+    --font-family: 'Gistesy', Arial, sans-serif;
+
+}
+
+/* Fonts */
+@font-face {
+  font-family: 'Gistesy'; 
+  src: url('../assets/fonts/Gistesy.woff2') format('woff2'); /* Modern browsers */
+  font-weight: 400; /* Define the weight (e.g., normal, bold, or a range) */
+  font-style: normal;  /* Define the style (e.g., normal, italic) */
+}
+@font-face {
+  font-family: 'TuesdayNight-Regular'; 
+  src: url('../assets/fonts/TuesdayNight-Regular.woff2') format('woff2'); /* Modern browsers */
+  font-weight: 400; /* Define the weight (e.g., normal, bold, or a range) */
+  font-style: normal;  /* Define the style (e.g., normal, italic) */
+}
+
+.Gistesy {
+    font-family: Gistesy;
+
+}
+.TuesdayNight-Regular {
+    font-family: TuesdayNight-Regular;
+}
+.playfair-display {
+  font-family: "Playfair Display", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+.lora {
+  font-family: "Lora", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+.clicker-script-regular {
+  font-family: "Clicker Script", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+.cactus-classical-serif-regular {
+  font-family: "Cactus Classical Serif", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
 .navbar {
+    font-family: Gistesy;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 5px;
-    background-color: #e6ccb2;
+    background-color: #FFFF;
 }
 .nav-links-container {
     display: flex;
