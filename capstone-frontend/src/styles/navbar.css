@@ -29,8 +29,8 @@
 .playfair-display {
   font-family: "Playfair Display", serif;
   font-optical-sizing: auto;
-  font-weight: 400;
-  font-style: normal;
+  /* font-weight: 400;
+  font-style: normal; */
 }
 .lora {
   font-family: "Lora", serif;
@@ -52,13 +52,5 @@
 
 .navbar {
     font-family: Gistesy;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 5px;
     background-color: #FFFF;
-}
-.nav-links-container {
-    display: flex;
-    gap: 10px;
 }

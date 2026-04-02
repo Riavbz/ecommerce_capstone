@@ -1,33 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import { getProducts, createProduct } from '../services/ProductService'
+import { Link } from 'react-router'
+import { getProducts } from '../services/ProductService'
 import Products from '../components/Products';
 import { useUserStore } from '../store/UserStore';
+import HomeImg from '../assets/HomeImg.webp';
+
 
 const Home = () => {
-  const { userId, username, role } = useUserStore();
+  const { username } = useUserStore();
   const [products, setProducts] = useState([]);
-  const [id, setId] = useState(4);
-  const [productName, setProductName] = useState("PLACEHOLDER");
-  const [price, setPrice] = useState(1);
-  const [category, setCategory] = useState("Farm");
-  const [filter, setFilter] = useState("All");
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const formData = {
-        name: productName,
-        price: price,
-        userId: userId,
-        description: "Default Description",
-        category: [category],
-      }
-      await createProduct(formData);
-      alert("Product Created!");
-      window.location.reload();
-    } catch (error) {
-      console.log(error)
-    }
-  };
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -41,78 +22,53 @@ const Home = () => {
     fetchProducts();
   }, []);
 
-   //Filter Logic
-  const filteredProducts = filter === "All"
-  ? products : products.filter(p => p.category.includes(filter));
-
-  const featuredProducts = products.slice(0, 4);
-  
   return (
-    <main className='main-content'>
-      <p>Welcome back {username || "guest"}</p>
+    <main className="main-content min-h-screen bg-[linear-gradient(90deg,#cdffd8,#94b9ff)] px-6">
+      {/* HERO SECTION */}
+      <section className="flex flex-col md:flex-row h-[70vh]">
+        {/* Left Side: Text and Gradient */}
+        <div className="md:w-1/2 bg-linear-to-tr from-pink-200 via-purple-100 to-yellow-100 flex flex-col justify-center px-12 lg:px-24 text-center md:text-left space-y-6">
+          <h1 className="playfair-display text-5xl lg:text-6xl font-medium leading-tight">
+            Handmade hugs in <br /> every stitch.
+          </h1>
+          <p className="text-gray-600 max-w-md">
+            Each critter is crafted with love and care, ready to bring a smile to your home.
+          </p>
+          <Link to="/critters" className="inline-block bg-[#86EFAC] hover:bg-green-400 text-white px-8 py-3 rounded-full font-bold transition-all w-fit mx-auto md:mx-0">
+            SHOP NOW
+          </Link>
+        </div>
 
-      {/* Filter Buttons */}
-      <div className="flex gap-4 my-6">
-        {["All", "Marine", "Farm", "Llamapalooza"].map((cat) => (
-          <button
-            key={cat}
-            onClick={() => setFilter(cat)}
-            className={`px-4 py-2 rounded-full border ${
-              filter === cat ? "bg-blue-500 text-white" : "bg-white text-gray-700"
-            }`}
-          >
-            {cat}
-          </button>
-        ))}
+        {/* Right Side: Image Grid */}
+        <div className="md:w-1/2 relative overflow-hidden bg-linear-to-tr from-green-200 via-blue-300 to-yellow-100">
+          <img 
+            src={HomeImg} 
+            alt="Crochet Grid" 
+            className="w-full h-full object-cover"
+          />
+        </div>
+      </section>
+
+      {/* FEATURED SECTION */}
+      <section className="bg-[#B9D9EB] py-16 px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex justify-between items-center mb-10">
+            <h2 className="playfair-display text-2xl font-medium uppercase tracking-widest text-black">Our Critters</h2>
+            <Link to="/critters" className=" playfair-display text-sm font-bold text-black flex items-center hover:underline">
+              MORE <span className="ml-2">→</span>
+            </Link>
+          </div>
+          
+          {/* Show only 2 featured products on Home */}
+          <Products products={products.slice(0, 2)} />
+        </div>
+      </section>
+
+      <div className="py-8 text-center italic playfair-display text-xl text-black">
+        <p>Welcome back, {username || "guest"}</p>
       </div>
-
-      {role === "admin" && (
-        <form onSubmit={handleSubmit}>
-          <label>id</label>
-          <br />
-          <input 
-            type="number" 
-            value={id} 
-            onChange={(e) => setId(e.target.value)} 
-          />
-          <br />
-          
-          <label>name</label>
-          <br />
-          <input 
-            type="text" 
-            value={productName} 
-            onChange={(e) => setProductName(e.target.value)} 
-          />
-          <br />
-          
-          <label>price</label>
-          <br />
-          <input 
-            type="number" 
-            value={price} 
-            onChange={(e) => setPrice(e.target.value)} 
-          />
-          <br />
-
-          <label htmlFor="category">Category</label>
-          <br />
-          <select 
-            id="category"
-            value={category} 
-            onChange={(e) => setCategory(e.target.value)}
-            className="border rounded p-1">
-            <option value="Marine">Marine</option>
-            <option value="Farm">Farm</option>
-            <option value="Llamapalooza">Llamapalooza</option>
-          </select>
-          <br />
-          <button type="submit">Create New Product</button>
-        </form>
-      )}
-      <Products filter={filter} />
     </main>
   )
 }
 
-export default Home
+export default Home;
