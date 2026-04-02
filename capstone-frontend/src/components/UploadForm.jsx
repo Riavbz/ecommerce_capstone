@@ -1,4 +1,3 @@
-// capstone-frontend/src/components/UploadForm.jsx
 import { useState } from 'react';
 
 
@@ -76,7 +75,7 @@ const UploadForm = ({ onUploadSuccess }) => {
     uploadFormData.append('name', formData.name);
     uploadFormData.append('price', formData.price);
     uploadFormData.append('description', formData.description);
-    uploadFormData.append('category', formData.category); //changed this for dynamic purpose
+    uploadFormData.append('category', formData.category); 
 
     try {
       const res = await fetch(

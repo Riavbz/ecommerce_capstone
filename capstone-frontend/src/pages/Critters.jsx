@@ -1,13 +1,13 @@
-import React, { useState } from 'react'; // 1. Added useState
+import React, { useState } from 'react';
 import Products from '../components/Products';
-import { useUserStore } from '../store/UserStore'; // 2. Added store
-import { createProduct } from '../services/ProductService'; // 3. Added for the form
+import { useUserStore } from '../store/UserStore'; 
+import { createProduct } from '../services/ProductService'; 
 
 const Critters = () => {
    const { role, userId } = useUserStore();
    const [filter, setFilter] = useState("All");
 
-   // 4. Added Form State (Since you want the Admin form here)
+  
    const [productName, setProductName] = useState("");
    const [price, setPrice] = useState(0);
    const [category, setCategory] = useState("Farm");

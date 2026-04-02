@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react"
-import { useSearchParams, Link } from "react-router" // Added Link
+import { useSearchParams, Link } from "react-router"
 import { createOrder } from "../services/PaymentService"
 import { useUserStore } from "../store/UserStore"
-import { useCartStore } from "../store/CartStore" // Added for clearing cart
+import { useCartStore } from "../store/CartStore"
 
 const Success = () => {
   const { userId } = useUserStore();
@@ -36,7 +36,7 @@ console.log("sessionId:", sessionId);
 console.log("userId:", userId);
 
   return (
-    <main className="min-h-screen bg-gradient-to-tr from-green-100 via-blue-50 to-purple-100 flex items-center justify-center p-6">
+    <main className="min-h-screen bg-linear-to-tr from-green-100 via-blue-50 to-purple-100 flex items-center justify-center p-6">
         <div className="bg-white/80 backdrop-blur-xl p-10 rounded-3xl shadow-2xl max-w-lg w-full text-center border border-white">
             
             {loading ? (
