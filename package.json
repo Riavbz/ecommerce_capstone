@@ -4,7 +4,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "concurrently \"cd capstone-backend && npm install && npm run dev\" \"cd capstone-frontend && npm install && npm run dev\""
+    "start": "concurrently \"cd capstone-backend && npm install && npm run dev\" \"cd capstone-frontend && npm install && npm run dev\"",
+    "build": "cd capstone-backend && npm install && cd ../capstone-frontend && npm install && npm run build",
+    "startup": "cd capstone-backend && node server.js"
   },
   "keywords": [],
   "author": "",
