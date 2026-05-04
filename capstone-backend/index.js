@@ -1,3 +1,6 @@
+import path from 'path';
+import { fileURLToPath } from 'url';
+
 import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
@@ -28,9 +31,16 @@ app.use(express.urlencoded({ extended: true }));
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
-app.get('/', (req, res) => {
-    res.send('Welcome to the Capstone Backend API');    
-});
+// app.get('/', (req, res) => {
+//     res.send('Welcome to the Capstone Backend API');    
+// });
+
+// ADDED FOR RENDER TO USE FRONTEND
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+app.use(express.static(path.join(__dirname, '../capstone-frontend/dist')));
+
 
 //Routes
 app.use('/product', productRoutes);
