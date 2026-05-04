@@ -8,13 +8,13 @@
 /* Fonts */
 @font-face {
   font-family: 'Gistesy'; 
-  src: url('../assets/fonts/Gistesy.woff2') format('woff2'); /* Modern browsers */
+  src: url('/fonts/Gistesy.woff2') format('woff2'); /* Modern browsers */
   font-weight: 400; /* Define the weight (e.g., normal, bold, or a range) */
   font-style: normal;  /* Define the style (e.g., normal, italic) */
 }
 @font-face {
   font-family: 'TuesdayNight-Regular'; 
-  src: url('../assets/fonts/TuesdayNight-Regular.woff2') format('woff2'); /* Modern browsers */
+  src: url('/fonts/TuesdayNight-Regular.woff2') format('woff2'); /* Modern browsers */
   font-weight: 400; /* Define the weight (e.g., normal, bold, or a range) */
   font-style: normal;  /* Define the style (e.g., normal, italic) */
 }
