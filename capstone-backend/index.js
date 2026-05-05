@@ -43,10 +43,10 @@ app.use(express.static(path.join(__dirname, '../capstone-frontend/dist')));
 
 
 //Routes
-app.use('/product', productRoutes);
-app.use('/user', userRoutes);
+app.use('/api/product', productRoutes);
+app.use('/api/user', userRoutes);
 
-app.get('/products', async (req, res) => {
+app.get('/api/products', async (req, res) => {
     try {
         const products = await Product.find();
         res.json(products);
@@ -56,7 +56,7 @@ app.get('/products', async (req, res) => {
     }
 });
 
-app.post('/products', async (req, res) => {
+app.post('/api/products', async (req, res) => {
     try {
         const newProduct = new Product(req.body);
         await newProduct.save();
@@ -68,7 +68,7 @@ app.post('/products', async (req, res) => {
 });
 
 // HTTP PUT Endpoint on /items/:id route
-app.put("/products/:id", async(req, res) => {
+app.put("/api/products/:id", async(req, res) => {
     try {
         const updatedProduct = await Product.findByIdAndUpdate(productId, newProduct, { new: true });
         if(!updatedProduct) {
@@ -81,7 +81,7 @@ app.put("/products/:id", async(req, res) => {
 });
 
 // HTTP DELETE Endpoint on /products/:id route
-app.delete("/products/:id", async(req, res) => {
+app.delete("/api/products/:id", async(req, res) => {
     try {
         const deletedProduct = await Product.findByIdAndDelete(req.params.id);
         if(!deletedProduct) return res.status(404).json({ error: "Item not found" });
@@ -91,7 +91,7 @@ app.delete("/products/:id", async(req, res) => {
     }
 });
 
-app.post("/signup", async (req, res) => {
+app.post("/api/signup", async (req, res) => {
     try {
         const payload = {
             email: req.body.email.trim().toLowerCase(), 
@@ -113,7 +113,7 @@ app.post("/signup", async (req, res) => {
     }
 });
 
-app.post("/login", async (req, res) => {
+app.post("/api/login", async (req, res) => {
     try {
        const email = req.body.email.trim().toLowerCase(); // remove whitespace and convert to lowercase
        const password = req.body.password;
@@ -134,7 +134,7 @@ app.post("/login", async (req, res) => {
     }
 });
 
-app.post("/checkout-session", async (req, res) => {
+app.post("/api/checkout-session", async (req, res) => {
     try {
         const { cartItems } = req.body;
         const line_items = cartItems.map((item) => ({
@@ -166,7 +166,7 @@ app.post("/checkout-session", async (req, res) => {
     }
 });
 
-app.post("/order", async (req, res) => {
+app.post("/api/order", async (req, res) => {
     try {
         const { sessionId } = req.query; // creates new order from stripe session id
         const existingOrder = await Order.findOne({ stripeSessionId: sessionId });
@@ -223,7 +223,12 @@ app.post("/order", async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
-})
+});
+
+// This MUST be the last route in your file
+app.get('/*path', (req, res) => {
+    res.sendFile(path.join(__dirname, '../capstone-frontend/dist', 'index.html'));
+});
 
 app.listen(port, () => {
     connectDB();
